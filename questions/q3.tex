@@ -105,21 +105,21 @@ Please do not exceed the height provided for each answer image.
 \begin{figure}[h!]
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/3a_gripper.jpg}
          \caption*{Mirobot with Gripper.}
      \end{subfigure}
      %
      \hfill
      %
      \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/3a_soft.jpg}
          \caption*{Mirobot with Flexible Claw.}
      \end{subfigure}
      %
      \hfill
      %
      \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/3a_suction_cup.jpg}
          \caption*{Mirobot with Suction Cup.}
      \end{subfigure}     
     \caption*{Answer for 3A.}
@@ -134,21 +134,34 @@ Please do not exceed the height provided for each answer image.
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/3b.jpg}
          \caption*{Gripper lifting a block (WLKATA Studio).}
      \end{subfigure}
      %
      \hfill
      %
      \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/3b_python.jpg}
          \caption*{Gripper lifting a block (Python).}
      \end{subfigure}
     \caption*{Answer for 3B.}
 \end{figure}
 %
 \begin{minted}{python}
-    var = 'YOU CODE GOES HERE'
+from wlkata_mirobot import WlkataMirobot, WlkataMirobotTool
+import time
+import sys
+
+arm = WlkataMirobot(portname='COM3')
+arm.home()
+
+if sys.argv[1] == 'gripper':
+    arm.set_tool_type(WlkataMirobotTool.GRIPPER)
+    arm.gripper_open()
+    arm.set_tool_pose(x=200, y=0, z=10, wait_ok=True)
+    arm.gripper_close()
+    arm.linear_interpolation(x=200, y=0, z=100, wait_ok=True)
+    print(f"Lifted! Now at {arm.pose}")
 \end{minted}
 
 
@@ -157,21 +170,29 @@ Please do not exceed the height provided for each answer image.
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/3c_studio.jpg}
          \caption*{Flexible Claw lifting a block (WLKATA Studio).}
      \end{subfigure}
      %
      \hfill
      %
      \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/3c_python.jpg}
          \caption*{Flexible Claw lifting a block (Python).}
      \end{subfigure}
     \caption*{Answer for 3C.}
 \end{figure}
 %
 \begin{minted}{python}
-    var = 'YOU CODE GOES HERE'
+# The setup part is the same as 3b and has been omitted
+
+if sys.argv[1] == 'soft':
+    arm.set_tool_type(WlkataMirobotTool.FLEXIBLE_CLAW)
+    arm.pump_suction()
+    arm.set_tool_pose(x=230, y=0, z=10, wait_ok=True)
+    arm.pump_blowing()
+    arm.linear_interpolation(x=230, y=0, z=100, wait_ok=True)
+    print(f"Lifted! Now at {arm.pose}")
 \end{minted}
 
 
@@ -180,25 +201,62 @@ Please do not exceed the height provided for each answer image.
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/3d_studio.jpg}
          \caption*{Suction Cup lifting a block (WLKATA Studio).}
      \end{subfigure}
      %
      \hfill
      %
      \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/3d_python.jpg}
          \caption*{Suction Cup lifting a block (Python).}
      \end{subfigure}
     \caption*{Answer for 3D.}
 \end{figure}
 %
 \begin{minted}{python}
-    var = 'YOU CODE GOES HERE'
+# The setup part is the same as 3b and has been omitted
+
+if sys.argv[1] == 'suction':
+    arm.set_tool_type(WlkataMirobotTool.SUCTION_CUP)
+    arm.set_tool_pose(x=210, y=0, z=-10, wait_ok=True)
+    arm.pump_suction()
+    arm.linear_interpolation(x=210, y=0, z=100, wait_ok=True)
+    print(f"Lifted! Now at {arm.pose}")
 \end{minted}
 
 
 \newpage
 \paragraph{Additional Space.}
+Attached below is the full original code used for question 3.
+\begin{minted}{python}
+from wlkata_mirobot import WlkataMirobot, WlkataMirobotTool
+import time
+import sys
+
+arm = WlkataMirobot(portname='COM3')
+arm.home()
+
+if sys.argv[1] == 'gripper':
+    arm.set_tool_type(WlkataMirobotTool.GRIPPER)
+    arm.gripper_open()
+    arm.set_tool_pose(x=200, y=0, z=10, wait_ok=True)
+    arm.gripper_close()
+    arm.linear_interpolation(x=200, y=0, z=100, wait_ok=True)
+    print(f"Lifted! Now at {arm.pose}")
+if sys.argv[1] == 'soft':
+    arm.set_tool_type(WlkataMirobotTool.FLEXIBLE_CLAW)
+    arm.pump_suction()
+    arm.set_tool_pose(x=230, y=0, z=10, wait_ok=True)
+    arm.pump_blowing()
+    arm.linear_interpolation(x=230, y=0, z=100, wait_ok=True)
+    print(f"Lifted! Now at {arm.pose}")
+if sys.argv[1] == 'suction':
+    arm.set_tool_type(WlkataMirobotTool.SUCTION_CUP)
+    arm.set_tool_pose(x=210, y=0, z=-10, wait_ok=True)
+    arm.pump_suction()
+    arm.linear_interpolation(x=210, y=0, z=100, wait_ok=True)
+    print(f"Lifted! Now at {arm.pose}")
+\end{minted}
 Please do not exceed this page for this question.
 %%%%%% YOU ANSWER ENDS HERE

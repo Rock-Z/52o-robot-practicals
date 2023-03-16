@@ -12,3 +12,5 @@ results/*
 *.fdb_latexmk
 *.aux
 desktop.ini
+*.sty
+_minted-main/

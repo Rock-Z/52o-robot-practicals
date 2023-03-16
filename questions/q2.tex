@@ -55,12 +55,12 @@ Please do not exceed the height provided for each answer image.
 
 \paragraph{2A. Install Python SDK}
 \begin{center}
-    \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+    \includegraphics[height=2.5in]{image/2a_pythonsdk.png}
 \end{center}
 
 \paragraph{2B. Create Python Object and Home}
 \begin{center}
-    \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+    \includegraphics[height=2.5in]{image/2b_exec_success.png}
 \end{center}
 
 \newpage
@@ -70,21 +70,32 @@ Include your code also.
 \begin{figure}[hb!]
      \centering
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/2c_a.jpg}
          \caption*{Inverse Kinematics to \texttt{TARGET A}}
      \end{subfigure}
      %
      \hfill
      %
      \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
-         \caption*{Forward Kinematics to \texttt{TARGET A}}
+        \includegraphics[height=2.5in]{image/2c_b.jpg}
+         \caption*{Forward Kinematics to \texttt{TARGET B}}
      \end{subfigure}
     \caption*{Answer for 2C.}
 \end{figure}
 
 \begin{minted}{python}
-    var = 'YOU CODE GOES HERE'
+from wlkata_mirobot import WlkataMirobot
+import sys
+
+arm = WlkataMirobot(portname='COM3')
+arm.home()
+
+
+if sys.argv[1] == '1e':
+    arm.set_tool_pose(x=130,y=150,z=10)
+if sys.argv[1] == '1f':
+    angles = {1:135.0, 2:55.0, 3:10.0}
+    arm.set_joint_angle(angles)
 \end{minted}
 
 \newpage
@@ -94,88 +105,160 @@ Include your code also.
 \begin{figure}[hb!]
      \centering
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/2d_p2p.jpg}
          \caption*{Point2Point: \texttt{TARGET A}}
      \end{subfigure}
      %
      \hfill
      %
      \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/2d_p2p_b.jpg}
          \caption*{Point2Point: \texttt{TARGET B}}
      \end{subfigure}
-    \caption*{Answer for 2C.}
+    \caption*{Answer for 2D.}
 \end{figure}
 %
 \begin{minted}{python}
-    var = 'YOU CODE GOES HERE'
+#Common header part skipped
+
+if sys.argv[1] == 'p2p':
+    # Go to A
+    arm.p2p_interpolation(x=130.0,y=150.0,z=10.0, wait_ok=True)
+    time.sleep(2)
+    # Interpolate to B
+    arm.p2p_interpolation(x=-160.0, y=140.0, z=10.0)
 \end{minted}
 
 \newpage
 \begin{figure}[hb!]
      \centering
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/2d_linear_a.jpg}
          \caption*{Linear: \texttt{TARGET A}}
      \end{subfigure}
      %
      \hfill
      %
      \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/2d_linear_b.jpg}
          \caption*{Linear: \texttt{TARGET B}}
      \end{subfigure}
-    \caption*{Answer for 2C.}
+    \caption*{Answer for 2D.}
 \end{figure}
 %
 \begin{minted}{python}
-    var = 'YOU CODE GOES HERE'
+# Again, common header (import/homing etc.) ignored
+
+if sys.argv[1] == 'linear':
+    # Go to A
+    arm.linear_interpolation(x=130.0,y=150.0,z=10.0)
+    time.sleep(2)
+    # Interpolate to B
+    arm.linear_interpolation(x=-160.0, y=140.0, z=10.0)
 \end{minted}
 
 \newpage
 \begin{figure}[hb!]
      \centering
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/2d_door_a.jpg}
          \caption*{Door: \texttt{TARGET A}}
      \end{subfigure}
      %
      \hfill
      %
      \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/2d_door_b.jpg}
          \caption*{Door: \texttt{TARGET B}}
      \end{subfigure}
-    \caption*{Answer for 2C.}
+    \caption*{Answer for 2D.}
 \end{figure}
 %
 \begin{minted}{python}
-    var = 'YOU CODE GOES HERE'
+# Again, common header (import/homing etc.) ignored
+
+if sys.argv[1] == 'door':
+    # Set lift distance
+    arm.set_door_lift_distance(50)
+    # Go to A
+    arm.set_tool_pose(x=130.0,y=150.0,z=10.0, wait_ok=True)
+    time.sleep(2)
+    # Interpolate to B
+    arm.door_interpolation(x=-160.0, y=140.0, z=10.0)
 \end{minted}
 
 \newpage
 \begin{figure}[hb!]
      \centering
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/2d_circular_a.jpg}
          \caption*{Circular: \texttt{TARGET A}}
      \end{subfigure}
      %
      \hfill
      %
      \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[draft,height=2.5in]{YOUR\_ANSWER.png}
+        \includegraphics[height=2.5in]{image/2d_circular_b.jpg}
          \caption*{Circular: \texttt{TARGET B}}
      \end{subfigure}
-    \caption*{Answer for 2C.}
+    \caption*{Answer for 2D.}
 \end{figure}
 %
 \begin{minted}{python}
-    var = 'YOU CODE GOES HERE'
+# Again, common header (import/homing etc.) ignored
+
+if sys.argv[1] == 'circular':
+    # Go to A
+    arm.set_tool_pose(x=130.0,y=150.0,z=10.0, wait_ok=True)
+    print(f"Arrived at {arm.pose}")
+    time.sleep(2)
+    # Interpolate to B
+    arm.circular_interpolation(ex=-290, ey=-10, radius=300, \
+        is_cw=False, wait_ok=True)
+    print(f"Interpolation complete! Now at {arm.pose}")
 \end{minted}
 
 \newpage
 
 \paragraph{Additional Space.}
+Attached below is the full orginal code used for question 2d.
+\begin{minted}{python}
+from wlkata_mirobot import WlkataMirobot
+import time
+import sys
+
+arm = WlkataMirobot(portname='COM3')
+arm.home()
+
+
+if sys.argv[1] == 'p2p':
+    # Go to A
+    arm.p2p_interpolation(x=130.0,y=150.0,z=10.0, wait_ok=True)
+    time.sleep(2)
+    # Interpolate to B
+    arm.p2p_interpolation(x=-160.0, y=140.0, z=10.0)
+if sys.argv[1] == 'linear':
+    # Go to A
+    arm.linear_interpolation(x=130.0,y=150.0,z=10.0)
+    time.sleep(2)
+    # Interpolate to B
+    arm.linear_interpolation(x=-160.0, y=140.0, z=10.0)
+if sys.argv[1] == 'door':
+    # Set lift distance
+    arm.set_door_lift_distance(50)
+    # Go to A
+    arm.set_tool_pose(x=130.0,y=150.0,z=10.0)
+    time.sleep(2)
+    # Interpolate to B
+    arm.door_interpolation(x=-160.0, y=140.0, z=10.0)
+if sys.argv[1] == 'circular':
+    # Go to A
+    arm.set_tool_pose(x=130.0,y=150.0,z=10.0, wait_ok=True)
+    print(f"Arrived at {arm.pose}")
+    time.sleep(2)
+    # Interpolate to B
+    arm.circular_interpolation(ex=-290, ey=-10, radius=300, is_cw=False, wait_ok=True)
+    print(f"Interpolation complete! Now at {arm.pose}")
+\end{minted}
 Please do not exceed this page for this question.
 %%%%%% YOU ANSWER ENDS HERE
