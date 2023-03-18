@@ -66,7 +66,7 @@ try:
             images = np.hstack((color_image, depth_colormap))
 
         # Show images
-        cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
+        cv2.namedWindow('RealSense', cv2.WINDOW_NORMAL)
         cv2.imshow('RealSense', images)
         Key = cv2.waitKey(1)
         if Key == 27:
